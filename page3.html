@@ -11,8 +11,25 @@
 <body>
   <h1>ようこそ！🎉</h1>
   <p>こちらが本当の友達追加ページです（多分）</p>
-  <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
-          title="Rickroll" frameborder="0" allowfullscreen>
+
+  <!-- allow="autoplay" を指定し、muteパラメータを外す -->
+  <iframe 
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+    title="Rickroll"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
   </iframe>
+
+  <script>
+    // 強制再生を狙う小技
+    window.addEventListener('load', () => {
+      const player = document.querySelector('iframe');
+      // iOSやChromeでブロックされる場合はフォールバック
+      setTimeout(() => {
+        player.src += "&autoplay=1";
+      }, 500);
+    });
+  </script>
 </body>
 </html>
