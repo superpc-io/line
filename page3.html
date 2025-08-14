@@ -4,31 +4,97 @@
   <meta charset="UTF-8">
   <title>LINE友達追加ありがとう</title>
   <style>
-    body { background: black; color: white; text-align: center; font-family: sans-serif; }
-    iframe { width: 90%; height: 60vh; margin-top: 30px; }
+    body {
+      background: black;
+      color: white;
+      text-align: center;
+      font-family: sans-serif;
+      margin: 0;
+      overflow: hidden;
+    }
+    /* 虹色アニメーション背景 */
+    @keyframes rainbow {
+      0% { background: red; }
+      14% { background: orange; }
+      28% { background: yellow; }
+      42% { background: green; }
+      57% { background: blue; }
+      71% { background: indigo; }
+      85% { background: violet; }
+      100% { background: red; }
+    }
+    .rainbow {
+      animation: rainbow 2s linear infinite;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 100px;
+      padding: 20px 40px;
+      font-size: 1.5em;
+      background: #06c755; /* LINEっぽい緑 */
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #049b3d;
+      text-decoration: none;
+      user-select: none;
+      z-index: 10;
+      position: relative;
+    }
+    .btn:active {
+      box-shadow: none;
+      transform: translateY(4px);
+    }
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      border: none;
+      display: none;
+      z-index: 5;
+    }
+    .message {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2em;
+      font-weight: bold;
+      background: rgba(0,0,0,0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
+      z-index: 20;
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <h1>ようこそ！🎉</h1>
-  <p>こちらが本当の友達追加ページです（多分）</p>
+  <h1>友達追加の最終確認</h1>
+  <p>下のボタンを押して認証を完了してください</p>
 
-  <!-- allow="autoplay" を指定し、muteパラメータを外す -->
+  <div class="btn" id="fakeBtn">友達追加</div>
+
+  <div class="message" id="trapMsg">💥 騙されたな貴様っwwww 💥</div>
+
   <iframe 
-    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+    id="rickFrame"
+    src=""
     title="Rickroll"
-    frameborder="0"
     allow="autoplay; encrypted-media"
     allowfullscreen>
   </iframe>
 
   <script>
-    // 強制再生を狙う小技
-    window.addEventListener('load', () => {
-      const player = document.querySelector('iframe');
-      // iOSやChromeでブロックされる場合はフォールバック
-      setTimeout(() => {
-        player.src += "&autoplay=1";
-      }, 500);
+    document.getElementById('fakeBtn').addEventListener('click', () => {
+      const frame = document.getElementById('rickFrame');
+      const msg = document.getElementById('trapMsg');
+      document.body.classList.add('rainbow'); // 虹色背景スタート
+      msg.style.display = "block"; // コメント表示
+      frame.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"; // 音付き再生
+      frame.style.display = "block"; // 全画面表示
+      document.getElementById('fakeBtn').style.display = "none"; // ボタン消す
     });
   </script>
 </body>
